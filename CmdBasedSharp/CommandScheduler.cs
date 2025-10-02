@@ -19,11 +19,6 @@ namespace CmdBased
         /* null command class - to be used as sentinel/head of command LL */
         private class NullCommand : CommandBase
         {
-            public override void PreInitialise()
-            {
-                throw new InvalidOperationException();
-            }
-
             public override void Initialise()
             {
                 throw new InvalidOperationException();
@@ -53,8 +48,6 @@ namespace CmdBased
         public bool Schedule(CommandBase command)
         {
             if (command.IsScheduled) return false; // already scheduled
-
-            command.PreInitialise();
 
             /* check requirements */
             foreach (var requirement in command.Requirements)

@@ -2,11 +2,6 @@ namespace CmdBased
 {
     public abstract class CommandBase
     {
-        public virtual void PreInitialise() { }
-        // NOTE: This should only be used to update certain attributes that are
-        //       later relied on by the scheduler (i.e. IsInterruptible or
-        //       Requirements).
-        
         public virtual void Initialise() { }
         public virtual void Execute() { }
         public virtual void End(bool interrupted) { }

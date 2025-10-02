@@ -13,21 +13,21 @@ namespace CmdBased
             PredFunction = pred;
             TrueCommand = onTrue;
             FalseCommand = onFalse;
+
+            /* aggregate requirements from TrueCommand and FalseCommand */
+            Requirements = new HashSet<SubsystemBase>([
+                .. TrueCommand.Requirements,
+                .. FalseCommand.Requirements
+            ]);
         }
 
         private bool PredOutput; // predicate's output for this run
-
-        public override void PreInitialise()
-        {
-            PredOutput = PredFunction(); // get predicate output for this run
-            Requirements = PredOutput
-                ? TrueCommand.Requirements : FalseCommand.Requirements;
-        }
 
         private bool IsRunning = false;
 
         public override void Initialise()
         {
+            PredOutput = PredFunction();
             if (PredOutput) TrueCommand.Initialise();
             else FalseCommand.Initialise();
             IsRunning = true;
@@ -65,7 +65,8 @@ namespace CmdBased
         {
             get
             {
-                if (!IsRunning) throw new InvalidOperationException();
+                if (!IsRunning)
+                    return false; // can't finish if the it's not being run
                 return PredOutput
                     ? TrueCommand.IsFinished : FalseCommand.IsFinished;
             }
