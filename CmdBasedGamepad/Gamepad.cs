@@ -45,8 +45,8 @@ namespace CmdBased
             new ButtonTrigger[(int)ButtonIDs.NUM_BUTTONS];
         public readonly ReadOnlyCollection<ButtonTrigger> Triggers;
 
-        private double[] AxesArray = new double[(int)AxisIDs.NUM_AXES];
-        public readonly ReadOnlyCollection<double> Axes;
+        private float[] AxesArray = new float[(int)AxisIDs.NUM_AXES];
+        public readonly ReadOnlyCollection<float> Axes;
 
         public Gamepad(string device = "/dev/input/js0")
         {
@@ -66,7 +66,7 @@ namespace CmdBased
             Controller.AxisChanged += (sender, e) =>
             {
                 AxesArray[e.Axis] =
-                    Math.Clamp((double)e.Value / 32767, -1.0, 1.0);
+                    (float)Math.Clamp((float)e.Value / 32767, -1.0, 1.0);
             };
         }
 
