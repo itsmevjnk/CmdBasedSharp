@@ -10,7 +10,12 @@ namespace CmdBased
                                ICollection<CommandBase> commands)
         {
             Scheduler = scheduler;
-            Commands = commands;
+            HashSet<SubsystemBase> reqs = new();
+            foreach (var command in commands)
+            {
+                foreach (var req in command.Requirements) reqs.Add(req);
+            }
+            Requirements = reqs;
         }
 
         public ScheduleCommand(CommandScheduler scheduler, CommandBase command)
@@ -23,7 +28,8 @@ namespace CmdBased
         {
             foreach (var command in Commands) Scheduler.Schedule(command);
             // NOTE: This will silently fail if the scheduler no-ops or fails
-            //       to schedule a command in.
+            //       to schedule a command in. However, this should be
+            //       mitigated by the requirement aggregation above.
         }
 
         public override bool IsFinished

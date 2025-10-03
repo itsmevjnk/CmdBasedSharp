@@ -10,10 +10,13 @@ namespace CmdBased
             get { return IsInterruptibleFlag; }
         }
 
-        public InstantCommand(Action func, bool interruptible)
+        public InstantCommand(Action func, 
+                              ICollection<SubsystemBase>? requirements = null,
+                              bool interruptible = true)
         {
             InitFunction = func;
             IsInterruptibleFlag = interruptible;
+            Requirements = requirements ?? [];
         }
 
         public override void Initialise()
