@@ -2,7 +2,7 @@ namespace CmdBased
 {
     public class InstantCommand : CommandBase
     {
-        private Procedure InitFunction;
+        private Action InitFunction;
 
         private bool IsInterruptibleFlag;
         public override bool IsInterruptible
@@ -10,7 +10,7 @@ namespace CmdBased
             get { return IsInterruptibleFlag; }
         }
 
-        public InstantCommand(Procedure func, bool interruptible)
+        public InstantCommand(Action func, bool interruptible)
         {
             InitFunction = func;
             IsInterruptibleFlag = interruptible;

@@ -2,12 +2,12 @@ namespace CmdBased
 {
     public class ConditionalCommand : CommandBase
     {
-        private Predicate PredFunction; // true/false predicate for selection
+        private Func<bool> PredFunction; // true/false predicate for selection
 
         private CommandBase TrueCommand;
         private CommandBase FalseCommand;
 
-        public ConditionalCommand(Predicate pred,
+        public ConditionalCommand(Func<bool> pred,
                                   CommandBase onTrue, CommandBase onFalse)
         {
             PredFunction = pred;

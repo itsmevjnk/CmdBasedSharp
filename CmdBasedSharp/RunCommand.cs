@@ -2,7 +2,7 @@ namespace CmdBased
 {
     public class RunCommand : CommandBase
     {
-        private Procedure ExecFunction;
+        private Action ExecFunction;
 
         private bool IsInterruptibleFlag;
         public override bool IsInterruptible
@@ -10,7 +10,9 @@ namespace CmdBased
             get { return IsInterruptibleFlag; }
         }
 
-        public RunCommand(Procedure func, ICollection<SubsystemBase>? requirements = null, bool interruptible = true)
+        public RunCommand(Action func,
+                          ICollection<SubsystemBase>? requirements = null,
+                          bool interruptible = true)
         {
             ExecFunction = func;
             IsInterruptibleFlag = interruptible;
