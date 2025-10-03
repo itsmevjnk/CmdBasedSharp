@@ -17,6 +17,11 @@ namespace CmdBased
 
         public override void Execute()
         {
+            if (Command.IsFinished) // restart command
+            {
+                Command.End(false);
+                Command.Initialise();
+            }
             Command.Execute();
         }
 
