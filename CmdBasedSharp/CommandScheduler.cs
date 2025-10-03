@@ -11,7 +11,7 @@ namespace CmdBased
 
         private List<TriggerBase> Triggers = [];
 
-        public void RegisterTriggers(TriggerBase trigger)
+        public void RegisterTrigger(TriggerBase trigger)
         {
             Triggers.Add(trigger);
         }

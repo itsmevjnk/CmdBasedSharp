@@ -72,7 +72,7 @@ namespace CmdBased
 
         public void RegisterTriggers(CommandScheduler scheduler)
         {
-            foreach (var trig in Triggers) scheduler.RegisterTriggers(trig);
+            foreach (var trig in Triggers) scheduler.RegisterTrigger(trig);
         }
 
         public void Dispose()
