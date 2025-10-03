@@ -32,9 +32,9 @@ namespace CmdBased
             command.Execute();
             if (command.IsFinished)
             {
+                command.End(false);
                 if (Commands.MoveNext())
                 {
-                    command.End(false);
                     // NOTE: End() will end the current command, including the
                     //       last command if we exit gracefully.
                     command = Commands.Current; // next command
@@ -46,7 +46,8 @@ namespace CmdBased
 
         public override void End(bool interrupted)
         {
-            Commands.Current.End(interrupted);
+            if (Commands.Current != null)
+                Commands.Current.End(interrupted);
             IsFinishedFlag = true; // in case we exit abruptly
         }
 
