@@ -2,10 +2,11 @@ namespace CmdBased
 {
     class MotorSubsystem : SubsystemBase
     {
+        private double VelocityValue = 0.0;
         public double Velocity
         {
-            get;
-            set { field = Math.Clamp(value, -1.0, 1.0); }
+            get { return VelocityValue; }
+            set { VelocityValue = Math.Clamp(value, -1.0, 1.0); }
         }
 
         public double Position { get; private set; } = 0;
@@ -24,7 +25,7 @@ namespace CmdBased
 
         public override string ToString()
         {
-            return $"{Name}(Pos={Position:4F},Vel={Velocity:4F})";
+            return $"{Name}(Pos={Position:F4},Vel={Velocity:F4})";
         }
 
         public CommandBase RunCommand(double vel)
