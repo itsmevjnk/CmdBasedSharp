@@ -24,7 +24,7 @@
             /* register subsystems */
             Scheduler.RegisterSubsystem(DriveSub);
 
-            using (var gamepad = new Gamepad()) // default device is /dev/input/js0
+            using (var gamepad = new Gamepad()) // default to /dev/input/js0
             {
                 Scheduler.RegisterTriggers
                 (
@@ -35,13 +35,15 @@
                     )
                 );
 
+                /* drivetrain default command: joystick teleoperation */
                 DriveSub.DefaultCommand = new RunCommand(() =>
                 {
+                    double xInput = gamepad.Axes[(int)Gamepad.AxisIDs.LEFT_X];
+                    double yInput = gamepad.Axes[(int)Gamepad.AxisIDs.LEFT_Y];
                     DriveSub.Drive(
-                        gamepad.Axes[(int)Gamepad.AxisIDs.LEFT_X] * JSTICK_MAX_SPEED,
-                        gamepad.Axes[(int)Gamepad.AxisIDs.LEFT_Y] * JSTICK_MAX_SPEED
+                        xInput * JSTICK_MAX_SPEED, yInput * JSTICK_MAX_SPEED
                     );
-                }, [DriveSub]); // default command: set drive speed to joystick input
+                }, [DriveSub]);
 
                 while (true)
                 {
