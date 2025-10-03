@@ -4,7 +4,7 @@ namespace CmdBased
     {
         public virtual void Periodic() { }
 
-        internal CommandBase? DefaultCommand = null;
+        public CommandBase? DefaultCommand = null;
         internal CommandBase? OccupyingCommand = null;
 
         internal bool IsAvailable
