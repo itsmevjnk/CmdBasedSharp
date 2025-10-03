@@ -7,6 +7,12 @@ namespace CmdBased
         public SequentialCommandGroup(ICollection<CommandBase> commands)
         {
             Commands = commands.GetEnumerator();
+            HashSet<SubsystemBase> reqs = new();
+            foreach (var command in commands)
+            {
+                foreach (var req in command.Requirements) reqs.Add(req);
+            }
+            Requirements = reqs;
         }
 
         private bool IsRunning = false;
