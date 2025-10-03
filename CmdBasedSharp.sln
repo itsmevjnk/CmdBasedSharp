@@ -7,6 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CmdBasedSharp", "CmdBasedSh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example", "Example\Example.csproj", "{2920C4E9-7EEB-4B9E-8F9E-696DF0774838}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "gamepad", "gamepad", "{9DACA9C0-46F0-4CBC-B7A4-D204781057DE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{14FED422-0CBC-44AC-9CBD-BAD3316E18CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamepad", "gamepad\src\Gamepad\Gamepad.csproj", "{332E5FFA-EDFA-487B-A7E0-76B2054C0ADB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +30,13 @@ Global
 		{2920C4E9-7EEB-4B9E-8F9E-696DF0774838}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2920C4E9-7EEB-4B9E-8F9E-696DF0774838}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2920C4E9-7EEB-4B9E-8F9E-696DF0774838}.Release|Any CPU.Build.0 = Release|Any CPU
+		{332E5FFA-EDFA-487B-A7E0-76B2054C0ADB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{332E5FFA-EDFA-487B-A7E0-76B2054C0ADB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{332E5FFA-EDFA-487B-A7E0-76B2054C0ADB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{332E5FFA-EDFA-487B-A7E0-76B2054C0ADB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{14FED422-0CBC-44AC-9CBD-BAD3316E18CF} = {9DACA9C0-46F0-4CBC-B7A4-D204781057DE}
+		{332E5FFA-EDFA-487B-A7E0-76B2054C0ADB} = {14FED422-0CBC-44AC-9CBD-BAD3316E18CF}
 	EndGlobalSection
 EndGlobal

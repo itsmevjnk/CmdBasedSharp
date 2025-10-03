@@ -1,0 +1,3 @@
+[submodule "gamepad"]
+	path = gamepad
+	url = https://github.com/nahueltaibo/gamepad.git
