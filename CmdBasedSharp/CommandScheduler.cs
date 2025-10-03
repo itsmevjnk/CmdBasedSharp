@@ -82,6 +82,7 @@ namespace CmdBased
 
             foreach (var requirement in command.Requirements)
                 requirement.OccupyingCommand = null;
+            command.RemoveScheduled();
 
             return true;
         }
