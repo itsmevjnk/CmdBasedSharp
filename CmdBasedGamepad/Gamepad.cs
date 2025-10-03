@@ -70,6 +70,11 @@ namespace CmdBased
             };
         }
 
+        public void RegisterTriggers(CommandScheduler scheduler)
+        {
+            foreach (var trig in Triggers) scheduler.RegisterTriggers(trig);
+        }
+
         public void Dispose()
         {
             Controller?.Dispose();
