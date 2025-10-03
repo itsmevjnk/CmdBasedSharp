@@ -9,21 +9,68 @@
             (double)TICK_TIME / 1000;
 
         /* subsystems */
-        static DriveSubsystem DriveSub = new();
+        static DriveSubsystem DriveSub;
         static MotorSubsystem Motor1 = new("Motor1");
 
         static readonly double JSTICK_MAX_SPEED = 2.0 * TICK_TIME_SEC;
         // maximum drive velocity from joystick input
 
+        static bool AdvancedConsole = true; // set if console supports clearing
+
+        static int ConsoleWidth, ConsoleHeight;
+
         public static void PrintStatus()
         {
-            Console.WriteLine(
-                $"{DriveSub}, {Motor1}"
-            );
+            if (!AdvancedConsole) // show robot state on one line
+                Console.WriteLine($"{DriveSub}, {Motor1}");
+            else
+            {
+                Console.Clear();
+
+                /* draw robot position */
+                int xPosition = (int)DriveSub.XPosition;
+                if (xPosition >= ConsoleWidth) xPosition = ConsoleWidth - 1;
+                int yPosition = (int)DriveSub.YPosition / 2;
+                if (yPosition >= ConsoleHeight - 1) xPosition = ConsoleHeight - 2;
+                Console.SetCursorPosition(
+                    (int)DriveSub.XPosition, (int)DriveSub.YPosition / 2
+                );
+                Console.Write(
+                    ((int)DriveSub.YPosition % 2 == 0) ? "\u2580" : "\u2584"
+                );
+
+                /* print motor status */
+                Console.SetCursorPosition(0, ConsoleHeight - 1);
+                Console.Write($"{DriveSub}, {Motor1}");
+            }
         }
 
         public static void Main()
         {
+            /* test if advanced console features are supported */
+            try
+            {
+                Console.Clear();
+                ConsoleWidth = Console.WindowWidth;
+                ConsoleHeight = Console.WindowHeight;
+                // Console.CursorVisible = false;
+            }
+            catch (IOException)
+            {
+                AdvancedConsole = false;
+                Console.WriteLine(
+                    "Advanced console features are not supported"
+                );
+            }
+
+            if (AdvancedConsole)
+                DriveSub = new(ConsoleWidth / 2, (ConsoleHeight * 2 - 1) / 2);
+            // NOTE: The robot space's dimensions will be ConsoleWidth by
+            //       ConsoleHeight * 2 - 1, with half block characters used to
+            //       represent the robot.
+            else
+                DriveSub = new();
+
             /* register subsystems */
             Scheduler.RegisterSubsystem(DriveSub);
             Scheduler.RegisterSubsystem(Motor1);
@@ -61,16 +108,16 @@
                 gamepad.Triggers[(int)Gamepad.ButtonIDs.START].WhileTrue(
                     new SequentialCommandGroup([
                         new RunCommand(() => {
-                            DriveSub.Drive(1.0, 0.0);
+                            DriveSub.Drive(0.25, 0.0);
                         }, [DriveSub]).WithTimeout((int)(1 / TICK_TIME_SEC)),
                         new RunCommand(() => {
-                            DriveSub.Drive(0.0, 1.0);
+                            DriveSub.Drive(0.0, 0.25);
                         }, [DriveSub]).WithTimeout((int)(1 / TICK_TIME_SEC)),
                         new RunCommand(() => {
-                            DriveSub.Drive(-1.0, 0.0);
+                            DriveSub.Drive(-0.25, 0.0);
                         }, [DriveSub]).WithTimeout((int)(1 / TICK_TIME_SEC)),
                         new RunCommand(() => {
-                            DriveSub.Drive(0.0, -1.0);
+                            DriveSub.Drive(0.0, -0.25);
                         }, [DriveSub]).WithTimeout((int)(1 / TICK_TIME_SEC))
                     ]).Perpetually()
                 );
