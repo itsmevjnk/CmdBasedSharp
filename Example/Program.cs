@@ -31,13 +31,15 @@
                 int xPosition = (int)DriveSub.XPosition;
                 if (xPosition >= ConsoleWidth) xPosition = ConsoleWidth - 1;
                 int yPosition = (int)DriveSub.YPosition / 2;
-                if (yPosition >= ConsoleHeight - 1) xPosition = ConsoleHeight - 2;
-                Console.SetCursorPosition(
-                    (int)DriveSub.XPosition, (int)DriveSub.YPosition / 2
-                );
-                Console.Write(
-                    ((int)DriveSub.YPosition % 2 == 0) ? "\u2580" : "\u2584"
-                );
+                bool yHalf = (int)DriveSub.YPosition % 2 != 0;
+                    // set if the robot is on the lower half of the cell
+                if (yPosition >= ConsoleHeight - 1)
+                {
+                    yPosition = ConsoleHeight - 2;
+                    yHalf = true;
+                }
+                Console.SetCursorPosition(xPosition, yPosition);
+                Console.Write(yHalf ? "\u2580" : "\u2584");
 
                 /* print motor status */
                 Console.SetCursorPosition(0, ConsoleHeight - 1);
